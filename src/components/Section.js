@@ -1,28 +1,31 @@
 import React from 'react'
 import styled from 'styled-components'
+import Fade from 'react-reveal/Fade'
 
 function Section({title,description, backgroundImg, leftBtnText, rightBtnText}) {
     return (
         <Wrap bgImage={backgroundImg}>
-            <ItemText>
-                <Title>
-                    <h1>{title}</h1>
-                </Title>
-                <p>{description}</p>
-            </ItemText>
-            <Buttons>
-                <ButtonGroup>
-                    <LeftButton>
-                        {leftBtnText}
-                    </LeftButton>
-                    { rightBtnText &&
-                        <RightButton>
-                            {rightBtnText}
-                        </RightButton>
-                    }
-                </ButtonGroup>
-                <DownArrow src="/images/down-arrow.svg" />
-            </Buttons>
+            <Fade cascade>
+                <ItemText>
+                    <Title>
+                        <h1>{title}</h1>
+                    </Title>
+                    <p>{description}</p>
+                </ItemText>
+                <Buttons>
+                        <ButtonGroup>
+                            <LeftButton>
+                                {leftBtnText}
+                            </LeftButton>
+                            { rightBtnText &&
+                                <RightButton>
+                                    {rightBtnText}
+                                </RightButton>
+                            }
+                        </ButtonGroup>
+                    <DownArrow src="/images/down-arrow.svg" />
+                </Buttons>
+            </Fade>
         </Wrap>
     )
 }
@@ -32,10 +35,10 @@ export default Section
 const Wrap = styled.div`
     width: 100vw;
     height: 100vh;
+    padding-top: 15vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('/images/model-s.jpg');
     background-image: ${props => `url("/images/${props.bgImage}")`};
     display: flex;
     flex-direction: column;
@@ -47,7 +50,6 @@ const Wrap = styled.div`
 `
 
 const ItemText = styled.div`
-    padding-top: 15vh;
     text-align: center;
 `
 

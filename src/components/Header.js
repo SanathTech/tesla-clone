@@ -1,13 +1,151 @@
-import React from 'react'
+import React, {useState} from 'react'
+import styled from 'styled-components'
+import MenuIcon from '@material-ui/icons/Menu'
+import CloseIcon from '@material-ui/icons/Close'
+import { selectCars } from '../features/car/carSlice'
+import { useSelector } from 'react-redux'
+import Fade from 'react-reveal/Fade'
 
 function Header() {
+    const [burgerStatus, setBurgerStatus] = useState(false);
+    const cars = useSelector(selectCars);
+    console.log(cars);
+
     return (
-        <div>
-            <svg>
-            <path d="M0 .1a9.7 9.7 0 007 7h11l.5.1v27.6h6.8V7.3L26 7h11a9.8 9.8 0 007-7H0zm238.6 0h-6.8v34.8H263a9.7 9.7 0 006-6.8h-30.3V0zm-52.3 6.8c3.6-1 6.6-3.8 7.4-6.9l-38.1.1v20.6h31.1v7.2h-24.4a13.6 13.6 0 00-8.7 7h39.9v-21h-31.2v-7h24zm116.2 28h6.7v-14h24.6v14h6.7v-21h-38zM85.3 7h26a9.6 9.6 0 007.1-7H78.3a9.6 9.6 0 007 7zm0 13.8h26a9.6 9.6 0 007.1-7H78.3a9.6 9.6 0 007 7zm0 14.1h26a9.6 9.6 0 007.1-7H78.3a9.6 9.6 0 007 7zM308.5 7h26a9.6 9.6 0 007-7h-40a9.6 9.6 0 007 7z" fill="var(--tds-icon--fill, #171a20)"></path>
-            </svg>
-        </div>
+        <Fade>
+            <Container>
+                <a>
+                    <img src="/images/logo.svg" alt="" />
+                </a>
+                <Menu>
+                    {cars && cars.map((car, index) => (
+                        <a key={index} href="#">{car}</a>
+                    ))}
+                </Menu>
+                <RightMenu>
+                    <a href="#">Shop</a>
+                    <a href="#">Account</a>
+                    {/* <a href="#">Menu</a> */}
+                    <CustomMenu onClick={() => setBurgerStatus(true)}/>
+                </RightMenu>
+                <BurgerNav show={burgerStatus}>
+                    <CloseWrapper>
+                        <CustomClose onClick={() => setBurgerStatus(false)}/>
+                    </CloseWrapper>
+                    <ScrollWrapper>
+                        <CarsWrapper>
+                            {cars && cars.map((car, index) => (
+                                <li key={index}><a href="#">{car}</a></li>
+                            ))}
+                        </CarsWrapper>
+                        <li><a href="#">Existing Inventory</a></li>
+                        <li><a href="#">Used Inventory</a></li>
+                        <li><a href="#">Trade-In</a></li>
+                        <li><a href="#">Test Drive</a></li>
+                        <li><a href="#">Cybertruck</a></li>
+                        <li><a href="#">Roadster</a></li>
+                        <li><a href="#">Semi</a></li>
+                        <li><a href="#">Charging</a></li>
+                        <li><a href="#">Powerwall</a></li>
+                        <li><a href="#">Commercial Energy</a></li>
+                        <li><a href="#">Utilities</a></li>
+                        <li><a href="#">Find Us</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Investor Relations</a></li>
+                    </ScrollWrapper>
+                </BurgerNav>
+            </Container>
+        </Fade>
     )
 }
 
 export default Header
+
+
+const Container = styled.div`
+    min-height: 60px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+`
+
+const Menu = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+
+    a {
+        padding: 0 10px;
+        color: rgb(24, 27, 33);
+    }
+
+    @media(max-width: 768px) {
+        display: none;
+    }
+`
+
+const RightMenu = styled.div`
+display: flex;
+align-items: center;
+
+    a {
+        margin-right: 10px;
+    }
+`
+
+const CustomMenu = styled(MenuIcon)`
+    cursor: pointer;
+`
+
+const BurgerNav = styled.div`
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: white;
+    width: 290px;
+    z-index: 1002;
+    list-style: none;
+    // padding: 70px 20px;
+    padding: 70px 0px;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    transform: ${props => props.show ? 'translateX(0)' : 'translateX(100%)'};
+    transition: transform 0.5s;
+    li {
+        padding: 11px 20px;
+    }
+`
+
+const CustomClose = styled(CloseIcon)`
+    cursor: pointer;
+`
+
+const CloseWrapper = styled.div`
+    margin-top: -40px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 25px;
+`
+
+const CarsWrapper = styled.div`
+    @media(min-width: 769px) {
+        display: none;
+    }
+`
+
+const ScrollWrapper = styled.div`
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    padding: 0 20px;
+`
