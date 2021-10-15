@@ -23,7 +23,7 @@ function Section({title,description, backgroundImg, leftBtnText, rightBtnText}) 
                                 </RightButton>
                             }
                         </ButtonGroup>
-                    <DownArrow src="/images/down-arrow.svg" />
+                    <DownArrow src="../assets/images/down-arrow.svg" />
                 </Buttons>
             </Fade>
         </Wrap>
@@ -39,13 +39,13 @@ const Wrap = styled.div`
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: ${props => `url("/images/${props.bgImage}")`};
+    background-image: ${props => `url("../assets/images/${props.bgImage}")`};
     display: flex;
     flex-direction: column;
     justify-content: space-between; //vertical
     align-items: center; //horizontal
     @media (max-width: 768px) {
-        background-image: ${props => `url("/images/mob-${props.bgImage}")`};
+        background-image: ${props => `url("../assets/images/mob-${props.bgImage}")`};
     }
 `
 
